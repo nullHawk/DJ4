@@ -10,7 +10,7 @@ def index(request):
             <title>Eureka!!!</title>
         </head>
         <body>
-            <h1 align='center'> Greetings !</h1>
+            <h1 align='center'> Greetings Papa!</h1>
             <p align='center'> by Suryansh Shakya </p>
         </body>
     </html>
