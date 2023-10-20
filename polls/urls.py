@@ -7,5 +7,5 @@ urlpatterns=[
     path('funcky',views.funcky),
     path('danger/<int:guess>', views.danger),
     path('google', views.google),
-    path('game/<slug:guess>', views.GameView.as_view())
+    path('game', views.GameView.as_view())
 ]

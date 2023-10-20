@@ -6,18 +6,7 @@ from django.views import View
 
 # Create your views here.
 def index(request):
-    response='''
-    <html>
-        <head>
-            <title>Eureka!!!</title>
-        </head>
-        <body>
-            <h1 align='center'> Greetings!</h1>
-            <p align='center'> by Suryansh Shakya </p>
-        </body>
-    </html>
-    '''
-    return HttpResponse(response)
+    return render(request , 'polls/index.html')
 
 def funcky(request):
     response=''' Hii '''
@@ -31,6 +20,6 @@ def danger(request,guess):
     return HttpResponse(response)
 
 class GameView(View):
-    def get(self, request, guess):
-        x = {'guess':int(guess)}
-        return render(request, 'polls/cond.html', x)
+    def get(self, request):
+        context = {'txt' : "<b>bold</b>"}
+        return render(request, 'polls/cond.html', context)
