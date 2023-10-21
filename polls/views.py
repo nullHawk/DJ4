@@ -1,25 +1,23 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django.utils.html import escape
 from django.views import View
+
+from .models import Question
+
 
 # Create your views here.
 def index(request):
-    return render(request , 'polls/index.html')
+    #return render(request , 'polls/index.html')
+    latest_question_list = Question.objects.order_by("-pub_date")[:5]
+    output = ", ".join([q.question_text for q in latest_question_list])
+    return HttpResponse(output)
 
-def funcky(request):
-    response=''' Hii '''
-    return HttpResponse(response)
+def detail(request, question_id):
+    return HttpResponse("You're looking at quetion%s." % question_id)
 
-def google(request):
-    return HttpResponseRedirect("www.google.co.in")
+def results(request, question_id):
+    response = "You're looking at the results of questions %s."
+    return HttpResponse(response % question_id)
 
-def danger(request,guess):
-    response = ''' Your guess was ''' + escape(guess)
-    return HttpResponse(response)
-
-class GameView(View):
-    def get(self, request):
-        context = {'txt' : "<b>bold</b>"}
-        return render(request, 'polls/cond.html', context)
+def vote(request, question_id):
+    return HttpResponse("You're voting on quetions %s" % question_id)
