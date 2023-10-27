@@ -41,7 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'polls'
+]
+
+INSTALLED_APPS+=[
+    'polls',
+    'home',
+    'puchi',
 ]
 
 MIDDLEWARE = [

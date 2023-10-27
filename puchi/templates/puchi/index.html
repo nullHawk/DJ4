@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Epic Proposal</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'puchi/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div id="proposal-container">
+        <h1>Will You Marry Me?</h1>
+        <button id="yes-button">Yes</button>
+        <button id="no-button">No</button>
+        <div id="response">
+            <br>
+            <p id="message"></p>
+        </div>
+    </div>
+    
+    <script src="{% static 'puchi/script.js' %}"></script>
+</body>
+</html>
