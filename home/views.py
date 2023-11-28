@@ -7,6 +7,8 @@ def index(request):
     sites = {
         "polls/owner": "Owner",
         "polls": "A Polls Application",
+        "hello": "Test the session",
+        "autos":"Autos CRUD",
     }
     data = {'sites' : sites}
     return render(request, 'home/index.html',data)
