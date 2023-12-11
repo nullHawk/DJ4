@@ -49,6 +49,7 @@ INSTALLED_APPS+=[
     'puchi',
     'hello',
     'autos',
+    'cats.apps.CatsConfig',
 ]
 
 MIDDLEWARE = [

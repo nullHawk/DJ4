@@ -9,6 +9,7 @@ def index(request):
         "polls": "A Polls Application",
         "hello": "Test the session",
         "autos":"Autos CRUD",
+        "cats":"Cats CRUD",
     }
     data = {'sites' : sites}
     return render(request, 'home/index.html',data)
