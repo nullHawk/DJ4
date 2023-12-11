@@ -6,6 +6,12 @@ from django.urls import reverse_lazy
 
 from cats.models import Breed, Cat
 from cats.forms import BreedForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views import View
+from django.urls import reverse_lazy
+from cats.models import Breed, Cat
+from cats.forms import BreedForm, CatForm
 
 # Create your views here.
 
@@ -89,32 +95,61 @@ class BreedDelete(LoginRequiredMixin, View):
         return redirect(self.success_url)
 
 
-# Take the easy way out on the main table
-# These views do not need a form because CreateView, etc.
-# Build a form object dynamically based on the fields
-# value in the constructor attributes
-class CatCreate(LoginRequiredMixin, CreateView):
-    model = Cat
-    fields = '__all__'
+# ...
+
+class CatCreate(LoginRequiredMixin, View):
+    template = 'cats/cat_form.html'
     success_url = reverse_lazy('cats:all')
 
+    def get(self, request):
+        form = CatForm()
+        ctx = {'form': form}
+        return render(request, self.template, ctx)
 
-class CatUpdate(LoginRequiredMixin, UpdateView):
-    model = Cat
-    fields = '__all__'
+    def post(self, request):
+        form = CatForm(request.POST)
+        if not form.is_valid():
+            ctx = {'form': form}
+            return render(request, self.template, ctx)
+
+        cat = form.save()
+        return redirect(self.success_url)
+
+
+class CatUpdate(LoginRequiredMixin, View):
+    template = 'cats/cat_form.html'
     success_url = reverse_lazy('cats:all')
 
+    def get(self, request, pk):
+        cat = get_object_or_404(Cat, pk=pk)
+        form = CatForm(instance=cat)
+        ctx = {'form': form}
+        return render(request, self.template, ctx)
 
-class CatDelete(LoginRequiredMixin, DeleteView):
-    model = Cat
-    fields = '__all__'
+    def post(self, request, pk):
+        cat = get_object_or_404(Cat, pk=pk)
+        form = CatForm(request.POST, instance=cat)
+        if not form.is_valid():
+            ctx = {'form': form}
+            return render(request, self.template, ctx)
+
+        form.save()
+        return redirect(self.success_url)
+
+
+class CatDelete(LoginRequiredMixin, View):
+    template = 'cats/cat_confirm_delete.html'
     success_url = reverse_lazy('cats:all')
 
-# We use reverse_lazy rather than reverse in the class attributes
-# because views.py is loaded by urls.py and in urls.py as_view() causes
-# the constructor for the view class to run before urls.py has been
-# completely loaded and urlpatterns has been processed.
+    def get(self, request, pk):
+        cat = get_object_or_404(Cat, pk=pk)
+        ctx = {'cat': cat}
+        return render(request, self.template, ctx)
 
+    def post(self, request, pk):
+        cat = get_object_or_404(Cat, pk=pk)
+        cat.delete()
+        return redirect(self.success_url)
 # References
 
 # https://docs.djangoproject.com/en/3.0/ref/class-based-views/generic-editing/#createview
