@@ -49,6 +49,7 @@ INSTALLED_APPS+=[
     'puchi',
     'hello',
     'autos',
+    'ads',
     'cats.apps.CatsConfig',
 ]
 
