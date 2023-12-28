@@ -10,6 +10,7 @@ def index(request):
         "hello": "Test the session",
         "autos":"Autos CRUD",
         "cats":"Cats CRUD",
+        "secret_santa":"Secrete Santa",
     }
     data = {'sites' : sites}
     return render(request, 'home/index.html',data)

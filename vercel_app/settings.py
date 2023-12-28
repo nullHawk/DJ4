@@ -55,6 +55,7 @@ INSTALLED_APPS+=[
     "crispy_forms",
     "crispy_bootstrap5",
     'django.contrib.humanize',
+    'secret_santa',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
